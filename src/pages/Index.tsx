@@ -97,7 +97,9 @@ const Index = () => {
 
   const clearNotes = () => {
     setContent("");
+    setTitle("");
     localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(TITLE_STORAGE_KEY);
     toast("Notes cleared");
     textareaRef.current?.focus();
   };
