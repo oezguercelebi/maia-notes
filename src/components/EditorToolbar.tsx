@@ -68,7 +68,9 @@ const shortcuts = [
 const EditorToolbar = ({ editor }: EditorToolbarProps) => {
   if (!editor) return null;
 
-  const cmd = editor.chain().focus();
+  const run = (fn: (chain: ReturnType<typeof editor.chain>) => ReturnType<typeof editor.chain>) => {
+    fn(editor.chain().focus()).run();
+  };
 
   return (
     <div
@@ -76,7 +78,7 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
       style={{ borderBottom: "1px solid rgba(255, 255, 255, 0.06)" }}
     >
       <ToolbarButton
-        onClick={() => cmd.toggleBold().run()}
+        onClick={() => run(c => c.toggleBold())}
         isActive={editor.isActive("bold")}
         title="Bold (Ctrl+B)"
       >
@@ -84,7 +86,7 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
       </ToolbarButton>
 
       <ToolbarButton
-        onClick={() => cmd.toggleItalic().run()}
+        onClick={() => run(c => c.toggleItalic())}
         isActive={editor.isActive("italic")}
         title="Italic (Ctrl+I)"
       >
@@ -94,7 +96,7 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
       <Divider />
 
       <ToolbarButton
-        onClick={() => cmd.toggleHeading({ level: 1 }).run()}
+        onClick={() => run(c => c.toggleHeading({ level: 1 }))}
         isActive={editor.isActive("heading", { level: 1 })}
         title="Heading 1"
       >
@@ -102,7 +104,7 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
       </ToolbarButton>
 
       <ToolbarButton
-        onClick={() => cmd.toggleHeading({ level: 2 }).run()}
+        onClick={() => run(c => c.toggleHeading({ level: 2 }))}
         isActive={editor.isActive("heading", { level: 2 })}
         title="Heading 2"
       >
@@ -110,7 +112,7 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
       </ToolbarButton>
 
       <ToolbarButton
-        onClick={() => cmd.toggleHeading({ level: 3 }).run()}
+        onClick={() => run(c => c.toggleHeading({ level: 3 }))}
         isActive={editor.isActive("heading", { level: 3 })}
         title="Heading 3"
       >
@@ -120,7 +122,7 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
       <Divider />
 
       <ToolbarButton
-        onClick={() => cmd.toggleBulletList().run()}
+        onClick={() => run(c => c.toggleBulletList())}
         isActive={editor.isActive("bulletList")}
         title="Bullet list"
       >
@@ -128,7 +130,7 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
       </ToolbarButton>
 
       <ToolbarButton
-        onClick={() => cmd.toggleOrderedList().run()}
+        onClick={() => run(c => c.toggleOrderedList())}
         isActive={editor.isActive("orderedList")}
         title="Numbered list"
       >
@@ -138,7 +140,7 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
       <Divider />
 
       <ToolbarButton
-        onClick={() => cmd.toggleBlockquote().run()}
+        onClick={() => run(c => c.toggleBlockquote())}
         isActive={editor.isActive("blockquote")}
         title="Blockquote"
       >
@@ -146,7 +148,7 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
       </ToolbarButton>
 
       <ToolbarButton
-        onClick={() => cmd.toggleCodeBlock().run()}
+        onClick={() => run(c => c.toggleCodeBlock())}
         isActive={editor.isActive("codeBlock")}
         title="Code block"
       >
@@ -154,7 +156,7 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
       </ToolbarButton>
 
       <ToolbarButton
-        onClick={() => cmd.setHorizontalRule().run()}
+        onClick={() => run(c => c.setHorizontalRule())}
         isActive={false}
         title="Divider"
       >
