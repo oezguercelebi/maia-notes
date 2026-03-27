@@ -75,7 +75,7 @@
   font-style: italic;
   font-weight: 400;
   font-size: 1.75rem;
-  margin: 1.2em 0 0.4em;
+  margin: 0 0 0.1em;
   color: hsl(0 0% 94%);
 }
 
@@ -84,7 +84,7 @@
   font-style: italic;
   font-weight: 400;
   font-size: 1.35rem;
-  margin: 1em 0 0.3em;
+  margin: 0 0 0.1em;
   color: hsl(0 0% 94%);
 }
 
@@ -92,7 +92,7 @@
   font-family: "DM Sans", sans-serif;
   font-weight: 600;
   font-size: 1.05rem;
-  margin: 0.8em 0 0.3em;
+  margin: 0 0 0.1em;
   color: hsl(0 0% 94%);
 }
 
