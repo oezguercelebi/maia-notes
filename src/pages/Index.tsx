@@ -30,6 +30,9 @@ const Index = () => {
       if (e.key === STORAGE_KEY && e.newValue !== null) {
         setContent(e.newValue);
       }
+      if (e.key === TITLE_STORAGE_KEY && e.newValue !== null) {
+        setTitle(e.newValue);
+      }
     };
     window.addEventListener("storage", handler);
     return () => window.removeEventListener("storage", handler);
