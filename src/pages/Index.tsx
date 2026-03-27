@@ -264,6 +264,23 @@ const Index = () => {
             </div>
           )}
 
+          {/* Title input */}
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Untitled"
+            spellCheck={false}
+            className="relative z-10 w-full bg-transparent px-6 pt-6 pb-0 text-foreground outline-none placeholder:text-muted-foreground font-normal italic"
+            style={{
+              fontFamily: '"Instrument Serif", Georgia, serif',
+              fontSize: "1.5rem",
+              caretColor: "#E8FF47",
+              border: "none",
+              borderBottom: "1px solid rgba(255, 255, 255, 0.06)",
+            }}
+          />
+
           <textarea
             ref={textareaRef}
             value={content}
@@ -271,7 +288,7 @@ const Index = () => {
             onKeyDown={handleKeyDown}
             placeholder="Start typing your notes..."
             spellCheck={false}
-            className="relative z-10 w-full h-full min-h-[60vh] resize-none bg-transparent p-6 text-foreground outline-none placeholder:text-muted-foreground"
+            className="relative z-10 w-full h-full min-h-[55vh] resize-none bg-transparent p-6 text-foreground outline-none placeholder:text-muted-foreground"
             style={{
               fontFamily:
                 '"DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif',
