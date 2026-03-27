@@ -170,15 +170,6 @@ const Index = () => {
             backdropFilter: "blur(8px)",
           }}
         >
-          {/* Accent glow at bottom of card */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                "radial-gradient(ellipse 70% 60% at 50% 100%, rgba(232, 255, 71, 0.04) 0%, transparent 70%)",
-              borderRadius: "inherit",
-            }}
-          />
 
           {/* Title input */}
           <input
