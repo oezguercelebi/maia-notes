@@ -169,30 +169,8 @@ const Index = () => {
           {/* Actions */}
           <div className="flex items-center gap-2">
             <button
-              onClick={insertTimestamp}
-              className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200"
-              style={{
-                background: "rgba(255, 255, 255, 0.06)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(232, 255, 71, 0.1)";
-                e.currentTarget.style.borderColor = "rgba(232, 255, 71, 0.3)";
-                e.currentTarget.style.color = "#E8FF47";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "rgba(255, 255, 255, 0.06)";
-                e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.1)";
-                e.currentTarget.style.color = "";
-              }}
-            >
-              <Clock size={14} />
-              Time
-            </button>
-
-            <button
               onClick={copyAll}
-              disabled={!content.trim()}
+              disabled={!content.trim() && !title.trim()}
               className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
               style={{
                 background: "rgba(255, 255, 255, 0.06)",
