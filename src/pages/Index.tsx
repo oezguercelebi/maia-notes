@@ -197,6 +197,9 @@ const Index = () => {
             }}
           />
 
+          {/* Formatting Toolbar */}
+          <EditorToolbar editor={editor} />
+
           {/* TipTap Editor */}
           <EditorContent editor={editor} className="relative z-10 min-h-[55vh] p-6" />
         </div>
