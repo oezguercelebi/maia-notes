@@ -194,7 +194,7 @@ const Index = () => {
 
             <button
               onClick={clearNotes}
-              disabled={!content.trim()}
+              disabled={!content.trim() && !title.trim()}
               className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
               style={{
                 background: "rgba(255, 255, 255, 0.06)",
