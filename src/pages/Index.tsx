@@ -201,7 +201,7 @@ const Index = () => {
                 border: "1px solid rgba(255, 255, 255, 0.1)",
               }}
               onMouseEnter={(e) => {
-                if (!content.trim()) return;
+                if (!content.trim() && !title.trim()) return;
                 e.currentTarget.style.background = "rgba(255, 107, 74, 0.15)";
                 e.currentTarget.style.borderColor = "rgba(255, 107, 74, 0.4)";
                 e.currentTarget.style.color = "#ff6b4a";
