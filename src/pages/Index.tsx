@@ -1,12 +1,16 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Copy, Trash2, Clock, Check } from "lucide-react";
+import { Copy, Trash2, Check } from "lucide-react";
 import { toast } from "sonner";
 
 const STORAGE_KEY = "maia-notes-content";
+const TITLE_STORAGE_KEY = "maia-notes-title";
 
 const Index = () => {
   const [content, setContent] = useState(() => {
     return localStorage.getItem(STORAGE_KEY) || "";
+  });
+  const [title, setTitle] = useState(() => {
+    return localStorage.getItem(TITLE_STORAGE_KEY) || "";
   });
   const [copiedSection, setCopiedSection] = useState<number | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -16,11 +20,18 @@ const Index = () => {
     localStorage.setItem(STORAGE_KEY, content);
   }, [content]);
 
+  useEffect(() => {
+    localStorage.setItem(TITLE_STORAGE_KEY, title);
+  }, [title]);
+
   // Listen for storage events from other tabs
   useEffect(() => {
     const handler = (e: StorageEvent) => {
       if (e.key === STORAGE_KEY && e.newValue !== null) {
         setContent(e.newValue);
+      }
+      if (e.key === TITLE_STORAGE_KEY && e.newValue !== null) {
+        setTitle(e.newValue);
       }
     };
     window.addEventListener("storage", handler);
@@ -78,34 +89,17 @@ const Index = () => {
     setContent(e.target.value);
   };
 
-  const insertTimestamp = () => {
-    const now = new Date();
-    const ts = `[${now.toLocaleTimeString("en-US", { hour12: false })}]`;
-    const ta = textareaRef.current;
-    if (ta) {
-      const pos = ta.selectionStart;
-      const before = content.substring(0, pos);
-      const after = content.substring(pos);
-      const newContent = before + ts + " " + after;
-      setContent(newContent);
-      requestAnimationFrame(() => {
-        ta.selectionStart = ta.selectionEnd = pos + ts.length + 1;
-        ta.focus();
-      });
-    } else {
-      setContent((prev) => prev + ts + " ");
-    }
-    toast("Timestamp inserted");
-  };
-
   const copyAll = async () => {
-    await navigator.clipboard.writeText(content);
+    const fullText = title.trim() ? `${title}\n\n${content}` : content;
+    await navigator.clipboard.writeText(fullText);
     toast("Copied all notes");
   };
 
   const clearNotes = () => {
     setContent("");
+    setTitle("");
     localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(TITLE_STORAGE_KEY);
     toast("Notes cleared");
     textareaRef.current?.focus();
   };
@@ -175,37 +169,15 @@ const Index = () => {
           {/* Actions */}
           <div className="flex items-center gap-2">
             <button
-              onClick={insertTimestamp}
-              className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200"
-              style={{
-                background: "rgba(255, 255, 255, 0.06)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(232, 255, 71, 0.1)";
-                e.currentTarget.style.borderColor = "rgba(232, 255, 71, 0.3)";
-                e.currentTarget.style.color = "#E8FF47";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "rgba(255, 255, 255, 0.06)";
-                e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.1)";
-                e.currentTarget.style.color = "";
-              }}
-            >
-              <Clock size={14} />
-              Time
-            </button>
-
-            <button
               onClick={copyAll}
-              disabled={!content.trim()}
+              disabled={!content.trim() && !title.trim()}
               className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
               style={{
                 background: "rgba(255, 255, 255, 0.06)",
                 border: "1px solid rgba(255, 255, 255, 0.1)",
               }}
               onMouseEnter={(e) => {
-                if (!content.trim()) return;
+                if (!content.trim() && !title.trim()) return;
                 e.currentTarget.style.background = "rgba(232, 255, 71, 0.1)";
                 e.currentTarget.style.borderColor = "rgba(232, 255, 71, 0.3)";
                 e.currentTarget.style.color = "#E8FF47";
@@ -222,14 +194,14 @@ const Index = () => {
 
             <button
               onClick={clearNotes}
-              disabled={!content.trim()}
+              disabled={!content.trim() && !title.trim()}
               className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
               style={{
                 background: "rgba(255, 255, 255, 0.06)",
                 border: "1px solid rgba(255, 255, 255, 0.1)",
               }}
               onMouseEnter={(e) => {
-                if (!content.trim()) return;
+                if (!content.trim() && !title.trim()) return;
                 e.currentTarget.style.background = "rgba(255, 107, 74, 0.15)";
                 e.currentTarget.style.borderColor = "rgba(255, 107, 74, 0.4)";
                 e.currentTarget.style.color = "#ff6b4a";
@@ -292,6 +264,23 @@ const Index = () => {
             </div>
           )}
 
+          {/* Title input */}
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Untitled"
+            spellCheck={false}
+            className="relative z-10 w-full bg-transparent px-6 pt-6 pb-0 text-foreground outline-none placeholder:text-muted-foreground font-normal italic"
+            style={{
+              fontFamily: '"Instrument Serif", Georgia, serif',
+              fontSize: "1.5rem",
+              caretColor: "#E8FF47",
+              border: "none",
+              borderBottom: "1px solid rgba(255, 255, 255, 0.06)",
+            }}
+          />
+
           <textarea
             ref={textareaRef}
             value={content}
@@ -299,7 +288,7 @@ const Index = () => {
             onKeyDown={handleKeyDown}
             placeholder="Start typing your notes..."
             spellCheck={false}
-            className="relative z-10 w-full h-full min-h-[60vh] resize-none bg-transparent p-6 text-foreground outline-none placeholder:text-muted-foreground"
+            className="relative z-10 w-full h-full min-h-[55vh] resize-none bg-transparent p-6 text-foreground outline-none placeholder:text-muted-foreground"
             style={{
               fontFamily:
                 '"DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif',
