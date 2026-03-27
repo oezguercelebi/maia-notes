@@ -3,8 +3,9 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import Typography from "@tiptap/extension-typography";
-import { Copy, Trash2, Check } from "lucide-react";
+import { Copy, Trash2 } from "lucide-react";
 import { toast } from "sonner";
+import EditorToolbar from "@/components/EditorToolbar";
 
 const STORAGE_KEY = "maia-notes-content";
 const TITLE_STORAGE_KEY = "maia-notes-title";
@@ -26,7 +27,7 @@ const Index = () => {
         horizontalRule: {},
       }),
       Placeholder.configure({
-        placeholder: "Start typing your notes... Use # for headings, - for bullets",
+        placeholder: "Start writing... Type # for headings, - for lists, > for quotes, or use the toolbar above",
       }),
       Typography,
     ],
@@ -195,6 +196,9 @@ const Index = () => {
               borderBottom: "1px solid rgba(255, 255, 255, 0.06)",
             }}
           />
+
+          {/* Formatting Toolbar */}
+          <EditorToolbar editor={editor} />
 
           {/* TipTap Editor */}
           <EditorContent editor={editor} className="relative z-10 min-h-[55vh] p-6" />
