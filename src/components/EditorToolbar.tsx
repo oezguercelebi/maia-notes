@@ -68,7 +68,9 @@ const shortcuts = [
 const EditorToolbar = ({ editor }: EditorToolbarProps) => {
   if (!editor) return null;
 
-  const cmd = editor.chain().focus();
+  const run = (fn: (chain: ReturnType<typeof editor.chain>) => ReturnType<typeof editor.chain>) => {
+    fn(editor.chain().focus()).run();
+  };
 
   return (
     <div
