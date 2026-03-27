@@ -20,6 +20,10 @@ const Index = () => {
     localStorage.setItem(STORAGE_KEY, content);
   }, [content]);
 
+  useEffect(() => {
+    localStorage.setItem(TITLE_STORAGE_KEY, title);
+  }, [title]);
+
   // Listen for storage events from other tabs
   useEffect(() => {
     const handler = (e: StorageEvent) => {
