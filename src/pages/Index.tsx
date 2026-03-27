@@ -271,7 +271,7 @@ const Index = () => {
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Untitled"
             spellCheck={false}
-            className="relative z-10 w-full bg-transparent px-6 pt-6 pb-0 text-foreground outline-none placeholder:text-muted-foreground font-normal italic"
+            className="relative z-10 w-full bg-transparent px-6 pt-4 pb-3 text-foreground outline-none placeholder:text-muted-foreground font-normal italic"
             style={{
               fontFamily: '"Instrument Serif", Georgia, serif',
               fontSize: "1.5rem",
