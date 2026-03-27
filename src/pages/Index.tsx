@@ -89,28 +89,9 @@ const Index = () => {
     setContent(e.target.value);
   };
 
-  const insertTimestamp = () => {
-    const now = new Date();
-    const ts = `[${now.toLocaleTimeString("en-US", { hour12: false })}]`;
-    const ta = textareaRef.current;
-    if (ta) {
-      const pos = ta.selectionStart;
-      const before = content.substring(0, pos);
-      const after = content.substring(pos);
-      const newContent = before + ts + " " + after;
-      setContent(newContent);
-      requestAnimationFrame(() => {
-        ta.selectionStart = ta.selectionEnd = pos + ts.length + 1;
-        ta.focus();
-      });
-    } else {
-      setContent((prev) => prev + ts + " ");
-    }
-    toast("Timestamp inserted");
-  };
-
   const copyAll = async () => {
-    await navigator.clipboard.writeText(content);
+    const fullText = title.trim() ? `${title}\n\n${content}` : content;
+    await navigator.clipboard.writeText(fullText);
     toast("Copied all notes");
   };
 
