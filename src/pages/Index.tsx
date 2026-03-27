@@ -14,6 +14,7 @@ const Index = () => {
   });
   const [copiedSection, setCopiedSection] = useState<number | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const pendingCursorRef = useRef<number | null>(null);
 
   // Persist to localStorage
   useEffect(() => {
@@ -23,6 +24,16 @@ const Index = () => {
   useEffect(() => {
     localStorage.setItem(TITLE_STORAGE_KEY, title);
   }, [title]);
+
+  // Set cursor position after React re-renders with new content
+  useEffect(() => {
+    if (pendingCursorRef.current !== null && textareaRef.current) {
+      const pos = pendingCursorRef.current;
+      textareaRef.current.selectionStart = pos;
+      textareaRef.current.selectionEnd = pos;
+      pendingCursorRef.current = null;
+    }
+  }, [content]);
 
   // Listen for storage events from other tabs
   useEffect(() => {
@@ -60,11 +71,8 @@ const Index = () => {
           e.preventDefault();
           const before = content.substring(0, pos - 2);
           const after = content.substring(pos);
-          const newContent = before + after;
-          setContent(newContent);
-          requestAnimationFrame(() => {
-            ta.selectionStart = ta.selectionEnd = pos - 2;
-          });
+          setContent(before + after);
+          pendingCursorRef.current = pos - 2;
           return;
         }
 
@@ -73,11 +81,8 @@ const Index = () => {
           e.preventDefault();
           const before = content.substring(0, pos);
           const after = content.substring(pos);
-          const newContent = before + "\n- " + after;
-          setContent(newContent);
-          requestAnimationFrame(() => {
-            ta.selectionStart = ta.selectionEnd = pos + 3;
-          });
+          setContent(before + "\n- " + after);
+          pendingCursorRef.current = pos + 3;
           return;
         }
       }
