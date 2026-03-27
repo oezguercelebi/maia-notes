@@ -3,7 +3,6 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import Typography from "@tiptap/extension-typography";
-import CodeBlockCopyButton from "@/extensions/CodeBlockCopyButton";
 import { Copy, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import EditorToolbar from "@/components/EditorToolbar";
@@ -31,7 +30,6 @@ const Index = () => {
         placeholder: "Start writing... Type # for headings, - for lists, > for quotes, or use the toolbar above",
       }),
       Typography,
-      CodeBlockCopyButton,
     ],
     content: localStorage.getItem(STORAGE_KEY) || "",
     onUpdate: ({ editor }) => {
