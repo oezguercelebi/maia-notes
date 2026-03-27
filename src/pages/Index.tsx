@@ -3,6 +3,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import Typography from "@tiptap/extension-typography";
+import CodeBlockCopyButton from "@/extensions/CodeBlockCopyButton";
 import { Copy, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import EditorToolbar from "@/components/EditorToolbar";
