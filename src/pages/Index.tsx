@@ -27,7 +27,7 @@ const Index = () => {
         horizontalRule: {},
       }),
       Placeholder.configure({
-        placeholder: "Start typing your notes... Use # for headings, - for bullets",
+        placeholder: "Start writing... Type # for headings, - for lists, > for quotes, or use the toolbar above",
       }),
       Typography,
     ],
