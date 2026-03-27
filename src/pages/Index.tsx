@@ -1,12 +1,16 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Copy, Trash2, Clock, Check } from "lucide-react";
+import { Copy, Trash2, Check } from "lucide-react";
 import { toast } from "sonner";
 
 const STORAGE_KEY = "maia-notes-content";
+const TITLE_STORAGE_KEY = "maia-notes-title";
 
 const Index = () => {
   const [content, setContent] = useState(() => {
     return localStorage.getItem(STORAGE_KEY) || "";
+  });
+  const [title, setTitle] = useState(() => {
+    return localStorage.getItem(TITLE_STORAGE_KEY) || "";
   });
   const [copiedSection, setCopiedSection] = useState<number | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
