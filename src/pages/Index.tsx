@@ -31,6 +31,7 @@ const Index = () => {
         placeholder: "Start writing... Type # for headings, - for lists, > for quotes, or use the toolbar above",
       }),
       Typography,
+      CodeBlockCopyButton,
     ],
     content: localStorage.getItem(STORAGE_KEY) || "",
     onUpdate: ({ editor }) => {
