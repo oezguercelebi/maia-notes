@@ -64,6 +64,7 @@ const shortcuts = [
   { keys: "---", desc: "Divider" },
   { keys: "Ctrl+B", desc: "Bold" },
   { keys: "Ctrl+I", desc: "Italic" },
+  { keys: "Ctrl+Shift+X", desc: "Strikethrough" },
 ];
 
 const EditorToolbar = ({ editor }: EditorToolbarProps) => {
