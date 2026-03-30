@@ -3,6 +3,7 @@ import { useState } from "react";
 import {
   Bold,
   Italic,
+  Strikethrough,
   Heading1,
   Heading2,
   Heading3,
