@@ -98,7 +98,7 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
       <ToolbarButton
         onClick={() => run(c => c.toggleStrike())}
         isActive={editor.isActive("strike")}
-        title="Strikethrough (Ctrl+Shift+S)"
+        title="Strikethrough (Ctrl+Shift+X)"
       >
         <Strikethrough size={15} />
       </ToolbarButton>
