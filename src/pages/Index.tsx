@@ -26,6 +26,14 @@ const Index = () => {
         blockquote: {},
         codeBlock: {},
         horizontalRule: {},
+        strike: false,
+      }),
+      Strike.extend({
+        addKeyboardShortcuts() {
+          return {
+            "Mod-Shift-x": () => this.editor.commands.toggleStrike(),
+          };
+        },
       }),
       Placeholder.configure({
         placeholder: "Start writing... Type # for headings, - for lists, > for quotes, or use the toolbar above",
