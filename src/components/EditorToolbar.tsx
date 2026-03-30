@@ -3,6 +3,7 @@ import { useState } from "react";
 import {
   Bold,
   Italic,
+  Strikethrough,
   Heading1,
   Heading2,
   Heading3,
@@ -63,6 +64,7 @@ const shortcuts = [
   { keys: "---", desc: "Divider" },
   { keys: "Ctrl+B", desc: "Bold" },
   { keys: "Ctrl+I", desc: "Italic" },
+  { keys: "Ctrl+Shift+X", desc: "Strikethrough" },
 ];
 
 const EditorToolbar = ({ editor }: EditorToolbarProps) => {
@@ -91,6 +93,14 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
         title="Italic (Ctrl+I)"
       >
         <Italic size={15} />
+      </ToolbarButton>
+
+      <ToolbarButton
+        onClick={() => run(c => c.toggleStrike())}
+        isActive={editor.isActive("strike")}
+        title="Strikethrough (Ctrl+Shift+X)"
+      >
+        <Strikethrough size={15} />
       </ToolbarButton>
 
       <Divider />
