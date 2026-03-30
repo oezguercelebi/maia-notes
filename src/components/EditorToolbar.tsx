@@ -64,7 +64,7 @@ const shortcuts = [
   { keys: "---", desc: "Divider" },
   { keys: "Ctrl+B", desc: "Bold" },
   { keys: "Ctrl+I", desc: "Italic" },
-  { keys: "Ctrl+Shift+X", desc: "Strikethrough" },
+  { keys: "Ctrl+Shift+S", desc: "Strikethrough" },
 ];
 
 const EditorToolbar = ({ editor }: EditorToolbarProps) => {
@@ -98,7 +98,7 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
       <ToolbarButton
         onClick={() => run(c => c.toggleStrike())}
         isActive={editor.isActive("strike")}
-        title="Strikethrough (Ctrl+Shift+X)"
+        title="Strikethrough (Ctrl+Shift+S)"
       >
         <Strikethrough size={15} />
       </ToolbarButton>
