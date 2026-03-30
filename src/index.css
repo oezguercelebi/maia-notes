@@ -72,7 +72,7 @@
 
 .maia-editor h1 {
   font-family: "Instrument Serif", Georgia, serif;
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
   font-size: 1.75rem;
   margin: 0 0 0.1em;
@@ -81,7 +81,7 @@
 
 .maia-editor h2 {
   font-family: "Instrument Serif", Georgia, serif;
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
   font-size: 1.35rem;
   margin: 0 0 0.1em;
