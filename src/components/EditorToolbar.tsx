@@ -38,6 +38,7 @@ const ToolbarButton = ({ onClick, isActive, children, title }: ToolbarButtonProp
   <button
     type="button"
     onClick={onClick}
+    onMouseDown={(e) => e.preventDefault()}
     title={title}
     className={`p-1.5 rounded-md transition-colors duration-150 ${
       isActive
