@@ -1,5 +1,5 @@
 import { Editor } from "@tiptap/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Bold,
   Italic,
@@ -69,6 +69,28 @@ const shortcuts = [
 ];
 
 const EditorToolbar = ({ editor }: EditorToolbarProps) => {
+  const [, forceRender] = useState(0);
+
+  useEffect(() => {
+    if (!editor) return;
+
+    const refreshToolbarState = () => {
+      forceRender((value) => value + 1);
+    };
+
+    editor.on("selectionUpdate", refreshToolbarState);
+    editor.on("transaction", refreshToolbarState);
+    editor.on("focus", refreshToolbarState);
+    editor.on("blur", refreshToolbarState);
+
+    return () => {
+      editor.off("selectionUpdate", refreshToolbarState);
+      editor.off("transaction", refreshToolbarState);
+      editor.off("focus", refreshToolbarState);
+      editor.off("blur", refreshToolbarState);
+    };
+  }, [editor]);
+
   if (!editor) return null;
 
   const run = (fn: (chain: ReturnType<typeof editor.chain>) => ReturnType<typeof editor.chain>) => {
